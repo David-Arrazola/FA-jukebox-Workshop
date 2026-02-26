@@ -1,13 +1,15 @@
-import db from "#db/client";
+import express from "express";
+import { getAllPlaylists } from "#db/queries/playlists";
 
-export default async function createPlaylists(name, descript) {
+const playlistRouter = express.Router();
+export default playlistRouter;
+
+playlistRouter.get("/", async (req, res) => {
   try {
-    const sql = `
-            INSERT INTO playlists (name, description)
-            VALUES($1, $2);
-        `;
-    await db.query(sql, [name, descript]);
+    const playlists = await getAllPlaylists();
+
+    res.send(playlists);
   } catch (e) {
     console.error(e);
   }
-}
+});

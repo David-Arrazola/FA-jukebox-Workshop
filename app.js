@@ -1,4 +1,5 @@
 import express from "express";
+import playlistRouter from "#api/playlists";
 const app = express();
 export default app;
 
@@ -13,7 +14,7 @@ app.use("/", (req, res, next) => {
 //* LOGGING middleware
 
 //todo ADD tracksRouter
-//todo ADD playlistRouter
+app.use("/playlist", playlistRouter);
 
 app.use("/", (err, req, res, next) => {
   console.error(err);

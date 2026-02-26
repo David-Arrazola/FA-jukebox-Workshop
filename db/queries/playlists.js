@@ -14,3 +14,14 @@ export async function createPlaylist(name, descript) {
     console.error(e);
   }
 }
+
+export async function getAllPlaylists() {
+  try {
+    const sql = `SELECT * FROM playlists`;
+    const playlists = (await db.query(sql)).rows;
+
+    return playlists;
+  } catch (e) {
+    console.error(e);
+  }
+}
