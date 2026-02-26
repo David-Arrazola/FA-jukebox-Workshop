@@ -11,9 +11,10 @@ CREATE TABLE tracks(
 ); 
 
 CREATE TABLE playlists_tracks(
-    PRIMARY KEY (playlists_id, tracks_id)
+    id SERIAL PRIMARY KEY,
     playlist_id INT NOT NULL REFERENCES playlists(id) ON DELETE CASCADE,
     track_id INT NOT NULL REFERENCES tracks(id) ON DELETE CASCADE,
+    UNIQUE(playlist_id, track_id)
 );
---* "PRIMARY KEY (playlists_id, tracks_id)" = id tuple identifies the entry row. 
---* Per PRIMARY KEY rules, each entry is UNIQUE. Cant repeat.
+--* "UNIQUE(playlist_id, track_id)" enforces that a track can't be
+--* in the same playlist more than once.
