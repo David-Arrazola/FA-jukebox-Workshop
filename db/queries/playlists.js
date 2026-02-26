@@ -25,3 +25,20 @@ export async function getAllPlaylists() {
     console.error(e);
   }
 }
+
+export async function getTracksInPlaylist(id) {
+  try {
+    const sql = `
+      SELECT *, 
+        (SELECT json_agg(tracks) FROM playlists_tracks 
+        JOIN tracks ON playlists_tracks.track_id = tracks.id
+        WHERE playlists_tracks.playlist_id = $1) AS tracks
+      FROM playlists WHERE id = $1
+    `;
+    const tracksInPlaylist = await db.query(sql, [id]);
+
+    return tracksInPlaylist;
+  } catch (e) {
+    console.error(e);
+  }
+}
