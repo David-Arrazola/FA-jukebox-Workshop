@@ -1,4 +1,7 @@
 import db from "#db/client";
+import { createPlaylist } from "./queries/playlists.js";
+import { createTrack } from "./queries/tracks.js";
+import { createPlaylistTrack } from "./queries/playlists_tracks.js";
 
 await db.connect();
 await seed();
@@ -7,8 +10,8 @@ console.log("🌱 Database seeded.");
 
 async function seed() {
   for (let i = 1; i <= 20; i++) {
-    await createPlaylist("Playlist " + i, "playlist information");
-    await createTrack("Track " + i, i * 10000);
+    await createPlaylist("Playlist " + i, "lorem ipsum playlist description");
+    await createTrack("Track " + i, i * 50000);
   }
   for (let i = 1; i <= 15; i++) {
     const playlistId = 1 + Math.floor(i / 2);

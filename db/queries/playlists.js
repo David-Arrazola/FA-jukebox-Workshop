@@ -1,11 +1,11 @@
 import db from "#db/client";
 
-export default async function createPlaylists(name, descript) {
+export async function createPlaylist(name, descript) {
   try {
     const sql = `
-            INSERT INTO playlists (name, description)
-            VALUES($1, $2)
-            RETURNING *;
+        INSERT INTO playlists (name, description)
+        VALUES($1, $2)
+        RETURNING *;
         `;
     const newPlaylist = (await db.query(sql, [name, descript])).rows;
 
